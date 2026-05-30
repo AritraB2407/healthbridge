@@ -1,22 +1,19 @@
 package com.aritra.healthbridge.entity;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.List;
 
 @Entity
 @Table(name = "doctors")
 @Data
-public class Doctor {
+@EqualsAndHashCode(callSuper = true)
+public class Doctor extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private String degree;
     private String department;

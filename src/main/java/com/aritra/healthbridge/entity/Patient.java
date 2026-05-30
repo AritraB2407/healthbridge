@@ -2,18 +2,16 @@ package com.aritra.healthbridge.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name="patients")
-public class Patient {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Patient extends BaseEntity{
 
     @Column(nullable=false)
     private String name;
