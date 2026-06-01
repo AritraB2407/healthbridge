@@ -2,7 +2,6 @@ package com.aritra.healthbridge.controller;
 
 import com.aritra.healthbridge.dto.PatientRequestDTO;
 import com.aritra.healthbridge.dto.PatientResponseDTO;
-import com.aritra.healthbridge.entity.Patient;
 import com.aritra.healthbridge.service.PatientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
