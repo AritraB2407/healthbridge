@@ -1,5 +1,6 @@
 package com.aritra.healthbridge.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record DoctorResponseDTO(
@@ -9,7 +10,7 @@ public record DoctorResponseDTO(
         String department,
         int experience,
         String specialization,
-        Double consultationFee
+        BigDecimal consultationFee
 ) {
 
 }

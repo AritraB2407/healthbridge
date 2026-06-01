@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public record DoctorRequestDTO(
@@ -24,5 +25,5 @@ public record DoctorRequestDTO(
         @NotBlank(message="Phone number is required")
          String phone,
         @NotNull(message="consultation fee is required")
-         Double consultationFee
+        BigDecimal consultationFee
 ) { }

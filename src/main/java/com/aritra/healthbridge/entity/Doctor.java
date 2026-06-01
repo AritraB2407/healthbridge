@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Doctor extends BaseEntity{
     private String specialization;
     private String email;
     private String phone;
-    private Double consultationFee;
+    private BigDecimal consultationFee;
 
     @Transient
     public int getExperience() {
