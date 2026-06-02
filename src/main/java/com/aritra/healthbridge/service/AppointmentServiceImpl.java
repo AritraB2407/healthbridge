@@ -4,7 +4,9 @@ import com.aritra.healthbridge.dto.AppointmentRequestDTO;
 import com.aritra.healthbridge.dto.AppointmentResponseDTO;
 import com.aritra.healthbridge.entity.Appointment;
 import com.aritra.healthbridge.enums.AppointmentStatus;
+import com.aritra.healthbridge.event.AppointmentBookedEvent;
 import com.aritra.healthbridge.exception.ResourceNotFoundException;
+import com.aritra.healthbridge.kafka.AppointmentEventProducer;
 import com.aritra.healthbridge.mapper.AppointmentMapper;
 import com.aritra.healthbridge.repository.AppointmentRepository;
 import com.aritra.healthbridge.repository.DoctorRepository;
@@ -24,6 +26,7 @@ public class AppointmentServiceImpl implements AppointmentService{
     private final PatientRepository patientRepository;
     private final DoctorRepository doctorRepository;
     private final AppointmentMapper appointmentMapper;
+    private final AppointmentEventProducer appointmentEventProducer;
 
     @Override
     public AppointmentResponseDTO createAppointment(AppointmentRequestDTO appointmentRequestDTO) {
@@ -34,7 +37,12 @@ public class AppointmentServiceImpl implements AppointmentService{
                 .orElseThrow(()-> new ResourceNotFoundException("Patient not found for id "+appointmentRequestDTO.patientId())));
         appointment.setAppointmentDateTime(appointmentRequestDTO.appointmentDateTime());
         appointment.setStatus(AppointmentStatus.PENDING);
-        return appointmentMapper.mapToDto(appointmentRepository.save(appointment));
+        Appointment savedAppointment = appointmentRepository.save(appointment);
+        AppointmentBookedEvent event = new AppointmentBookedEvent(savedAppointment.getId(),
+                savedAppointment.getPatient().getName(),savedAppointment.getDoctor().getName(),savedAppointment.getAppointmentDateTime());
+        appointmentEventProducer.publishAppointmentBooked(event);
+
+        return appointmentMapper.mapToDto(savedAppointment);
     }
 
     @Override
