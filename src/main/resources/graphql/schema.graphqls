@@ -1,0 +1,27 @@
+type Doctor {
+    id: ID
+    name: String
+    degree: String
+    department: String
+    experience: Int
+    specialization: String
+    consultationFee: Float
+}
+
+type Query {
+    allDoctors: [Doctor]
+    doctorById(id: ID): Doctor
+}
+
+type Mutation {
+        addDoctor(
+            name: String,
+            degree: String,
+            department: String,
+            yearOfPassing: String,
+            specialization: String,
+            email: String,
+            phone: String,
+            consultationFee: Float
+        ): Doctor
+}
